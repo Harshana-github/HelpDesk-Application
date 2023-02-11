@@ -1,25 +1,30 @@
-import express from 'express'
-import colors from 'colors'
-import dotenv from 'dotenv'
+import express from 'express';
+import colors from 'colors';
+import dotenv from 'dotenv';
+import cors from 'cors';
 
-import connectDB from './config/db.js'
-import customerRoute from './routes/customerRoute.js'
+import connectDB from './config/db.js';
+import ticketRoute from './routes/ticketRoute.js';
 
-const app = express()
-dotenv.config()  
+const app = express();
+dotenv.config();  
 
-connectDB()
+connectDB();
 
-app.use(express.json())
+app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200
+}));
 
-app.use('/api', customerRoute)
+app.use('/api',cors(), ticketRoute);
 
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 
 app.listen(
   PORT,
   console.log(
     `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
   )
-)
+);

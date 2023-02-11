@@ -1,17 +1,16 @@
 import mongoose from "mongoose";
-import dotenv from 'dotenv'
-import colors from 'colors'
-
-import customer from "./data/customer.js";
+import dotenv from 'dotenv';
+import colors from 'colors';
+// Data Seeder file
 import teckPerson from "./data/techPerson.js";
 import Customer from "./models/customerModel.js";
 import TechPerson from "./models/techPersonModel.js";
 import Ticket from "./models/ticketModel.js";
-import connectDB from './config/db.js'
+import connectDB from './config/db.js';
 
-dotenv.config()
+dotenv.config();
 
-connectDB()
+connectDB();
 
 const importData = async () => {
     try {
@@ -19,33 +18,33 @@ const importData = async () => {
         await TechPerson.deleteMany();
         await Ticket.deleteMany();
 
-        await Customer.insertMany(customer)
-        await TechPerson.insertMany(teckPerson)
+
+        await TechPerson.insertMany(teckPerson);
         
-        console.log('Data Imported!'.green.inverse)
-        process.exit()
+        console.log('Data Imported!'.green.inverse);
+        process.exit();
     } catch (error) {
-        console.error(`${error}`.red.inverse)
-        process.exit(1)
+        console.error(`${error}`.red.inverse);
+        process.exit(1);
     }
 }
 
 const destroyData = async () => {
     try {
-        await Customer.deleteMany()
-        await TechPerson.deleteMany()
-        await Ticket.deleteMany()
+        await Customer.deleteMany();
+        await TechPerson.deleteMany();
+        await Ticket.deleteMany();
 
-        console.log('Data Destroyed!'.red.inverse)
-        process.exit()
+        console.log('Data Destroyed!'.red.inverse);
+        process.exit();
     } catch (error) {
-        console.error(`${error}`.red.inverse)
-        process.exit(1)
+        console.error(`${error}`.red.inverse);
+        process.exit(1);
     }
 }
 
 if (process.argv[2] === '-d') {
-    destroyData()
+    destroyData();
 } else {
-    importData()
+    importData();
 }

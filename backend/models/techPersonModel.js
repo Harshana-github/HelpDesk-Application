@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const techPersonSchema = mongoose.Schema(
   {
@@ -13,6 +13,6 @@ const techPersonSchema = mongoose.Schema(
   }
 )
 
-const TechPerson = mongoose.model('TechPerson', techPersonSchema)
+const TechPerson = mongoose.model('TechPerson', techPersonSchema);
 
-export default TechPerson 
+export default TechPerson;

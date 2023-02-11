@@ -1,16 +1,27 @@
 import mongoose from "mongoose";
 
 const ticketSchema = mongoose.Schema({
-  customerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Customer",
+  name: {
+    type: String,
     required: true,
   },
-  techPersonId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "TechPerson",
+  contact: {
+    type: Number,
     required: true,
   },
+  location: {
+      type: String,
+      required: true,
+  },
+  nic: {
+    type: Number,
+    required: true,
+  },
+  // techPersonId: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "TechPerson",
+  //   required: true,
+  // },
   supportDetails: {
     type: String,
     required: true,

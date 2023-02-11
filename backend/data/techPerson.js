@@ -9,4 +9,4 @@ const teckPerson = [
     }
 ]
 
-export default teckPerson
+export default teckPerson;
