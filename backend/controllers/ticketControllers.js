@@ -5,18 +5,15 @@ import Ticket from "../models/ticketModel.js";
 // @route   get /api/get-ticket
 // @access Public
 const getTicket = asyncHandler(async (req, res) => {
-
   const tickets = await Ticket.find();
   res.set("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.json({tickets});
-  
+  res.json({ tickets });
 });
 
 // @desc    Add ticket
 // @route   POST /api/add-ticket
 // @access Public
 const addTicket = asyncHandler(async (req, res) => {
-  
   const nic = req.body.nic;
   const name = req.body.name;
   const contact = req.body.contact;
@@ -28,7 +25,7 @@ const addTicket = asyncHandler(async (req, res) => {
     name,
     contact,
     location,
-    supportDetails
+    supportDetails,
   });
 
   try {
@@ -39,18 +36,21 @@ const addTicket = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Fetch single ticket
-// @route   GET /api/get-ticket/:id
+// @desc    Update single ticket status
+// @route   PUT /api/get-ticket/:id
 // @access Public
 const getTicketById = asyncHandler(async (req, res) => {
-  const oneTicket = await Ticket.findById(req.params.id)
-
-  if (oneTicket) {
-    res.json(oneTicket)
+  const ticketId = req.params.id
+  const status = req.body.event;
+  console.log(status);
+  const oneTicket = await Ticket.findById(req.params.id);
+  console.log(oneTicket);
+  const updatedState = await Ticket.findByIdAndUpdate(ticketId, { progressStatus: status }, { new: true })
+  if (updatedState) {
+    res.json(updatedState)
   } else {
-    res.status(404)
-    throw new Error('Product Not Found')
-  }
-})
+   throw new Error('Ticket Not Found')
+  }    res.status(404)
+});
 
-export { getTicket, addTicket };
+export { getTicket, addTicket, getTicketById };
