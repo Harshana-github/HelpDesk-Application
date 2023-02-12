@@ -6,9 +6,9 @@ import Ticket from "../models/ticketModel.js";
 // @access Public
 const getTicket = asyncHandler(async (req, res) => {
 
-  const ticket = await Ticket.find();
+  const tickets = await Ticket.find();
   res.set("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.json(ticket);
+  res.json({tickets});
   
 });
 
@@ -33,10 +33,24 @@ const addTicket = asyncHandler(async (req, res) => {
 
   try {
     await newTicket.save();
-    res.json('ticket added successfully');
+    res.json(newTicket);
   } catch (err) {
     console.log(err);
   }
 });
+
+// @desc    Fetch single ticket
+// @route   GET /api/get-ticket/:id
+// @access Public
+const getTicketById = asyncHandler(async (req, res) => {
+  const oneTicket = await Ticket.findById(req.params.id)
+
+  if (oneTicket) {
+    res.json(oneTicket)
+  } else {
+    res.status(404)
+    throw new Error('Product Not Found')
+  }
+})
 
 export { getTicket, addTicket };
