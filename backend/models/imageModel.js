@@ -9,7 +9,12 @@ const imageSchema = new Schema({
     },
     photo: {
         type: String
-    }
+    },
+    ticketId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Ticket",
+        required: true,
+      },
 })
 
 const Image = mongoose.model("Image", imageSchema)

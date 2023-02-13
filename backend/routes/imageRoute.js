@@ -26,12 +26,14 @@ const fileFilter = (req, file, cb) => {
 }
 let upload = multer({ storage, fileFilter })
 router.route('/add').post(upload.single('photo'), (req, res) => {
-    const price = req.body.price 
+    const price = req.body.price
+    const ticketId = req.body.ticketId
     const photo = req.file.filename
 
     const newImageData = {
         price,
-        photo
+        photo,
+        ticketId : ticketId
     }
 
     const newUser = new Image(newImageData)
@@ -42,7 +44,7 @@ router.route('/add').post(upload.single('photo'), (req, res) => {
 })
 
 router.route('/rec').get((req,res) => {
-    User.find()
+    Image.find()
         .then(user => res.json(user))
         .catch(err => res.status(400).json('Error: ' + err))
 })
