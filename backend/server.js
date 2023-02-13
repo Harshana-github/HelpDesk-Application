@@ -5,6 +5,8 @@ import cors from 'cors';
 
 import connectDB from './config/db.js';
 import ticketRoute from './routes/ticketRoute.js';
+import techPeopleRoute from './routes/techPeopleRoute.js'
+import imageRoute from './routes/imageRoute.js'
 
 const app = express();
 dotenv.config();  
@@ -18,6 +20,8 @@ app.use(cors({
 }));
 
 app.use('/api',cors(), ticketRoute);
+app.use('/api',cors(), techPeopleRoute);
+app.use('/image',cors(), imageRoute)
 
 
 const PORT = process.env.PORT || 5000;

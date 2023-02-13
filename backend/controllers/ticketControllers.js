@@ -19,6 +19,7 @@ const addTicket = asyncHandler(async (req, res) => {
   const contact = req.body.contact;
   const location = req.body.location;
   const supportDetails = req.body.suportDetails;
+  const techPerson = req.body.techPeopleId
 
   const newTicket = new Ticket({
     nic,
@@ -26,6 +27,7 @@ const addTicket = asyncHandler(async (req, res) => {
     contact,
     location,
     supportDetails,
+    techPersonId:techPerson
   });
 
   try {
@@ -40,17 +42,20 @@ const addTicket = asyncHandler(async (req, res) => {
 // @route   PUT /api/get-ticket/:id
 // @access Public
 const getTicketById = asyncHandler(async (req, res) => {
-  const ticketId = req.params.id
+  const ticketId = req.params.id;
   const status = req.body.event;
-  console.log(status);
   const oneTicket = await Ticket.findById(req.params.id);
-  console.log(oneTicket);
-  const updatedState = await Ticket.findByIdAndUpdate(ticketId, { progressStatus: status }, { new: true })
+  const updatedState = await Ticket.findByIdAndUpdate(
+    ticketId,
+    { progressStatus: status },
+    { new: true }
+  );
   if (updatedState) {
-    res.json(updatedState)
+    res.json(updatedState);
   } else {
-   throw new Error('Ticket Not Found')
-  }    res.status(404)
+    throw new Error("Ticket Not Found");
+  }
+  res.status(404);
 });
 
 export { getTicket, addTicket, getTicketById };
